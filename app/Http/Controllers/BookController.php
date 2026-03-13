@@ -64,13 +64,8 @@ class BookController extends Controller
      */
     public function delete(Book $book)
     {
-        return view('books.delete', ['book' => $book]);
-    }
-
-    public function destroy(Book $book)
-    {
+        $book = Book::findOrFail($book->id);
         $book->delete();
-
-        return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
+        return view('books.index', ['books' => Book::all()])->with('success', 'Book deleted successfully!');
     }
 }
